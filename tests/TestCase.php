@@ -2,9 +2,9 @@
 
 namespace AuroraWebSoftware\FlyModel\Tests;
 
+use AuroraWebSoftware\FlyModel\FlyModelServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use AuroraWebSoftware\FlyModel\FlyModelServiceProvider;
 
 class TestCase extends Orchestra
 {
