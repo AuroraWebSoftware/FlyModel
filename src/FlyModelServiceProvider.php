@@ -2,9 +2,9 @@
 
 namespace AuroraWebSoftware\FlyModel;
 
+use AuroraWebSoftware\FlyModel\Commands\FlyModelCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use AuroraWebSoftware\FlyModel\Commands\FlyModelCommand;
 
 class FlyModelServiceProvider extends PackageServiceProvider
 {
