@@ -4,24 +4,40 @@ namespace AuroraWebSoftware\FlyModel;
 
 use AuroraWebSoftware\FlexyField\Contracts\FlexyModelContract;
 use AuroraWebSoftware\FlexyField\Traits\Flexy;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class FlyModel
 {
-    public function make(string $deck): Model|FlexyModelContract
+    public function make(string $deck)
     {
-        $instance = new class extends Model implements FlexyModelContract
-        {
+        $instance = new class extends Model implements FlexyModelContract {
             use Flexy;
-
-            public function scopeDeck($query, $value)
+            protected $guarded = [];
+            protected static function booted()
             {
-                return $query->where('active', $value);
+                static::addGlobalScope('deck', function (Builder $builder) {
+                    $modelType = static::getModelType();
+                    $builder->where(function ($query) {
+                        $query->where('deck', '=', self::$deck);
+                    });
+                });
             }
 
+            public static string $deck = '';
+
             protected $table = 'fly_models';
+
+            public static function getModelType(): string
+            {
+                return 'FlyModel@' . self::$deck;
+            }
+
+
         };
 
-        return $instance->deck($deck);
+        $instance::$deck = $deck;
+        $instance->deck = $deck;
+        return $instance;
     }
 }
