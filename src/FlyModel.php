@@ -10,7 +10,8 @@ class FlyModel
 {
     public function make(string $deck): Model|FlexyModelContract
     {
-        $instance = new class extends Model implements FlexyModelContract {
+        $instance = new class extends Model implements FlexyModelContract
+        {
             use Flexy;
 
             public function scopeDeck($query, $value)
@@ -23,5 +24,4 @@ class FlyModel
 
         return $instance->deck($deck);
     }
-
 }

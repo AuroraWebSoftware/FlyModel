@@ -14,7 +14,8 @@ beforeEach(function () {
 it('can test', function () {
     expect(true)->toBeTrue();
 
-    $instance = new class extends Model implements FlexyModelContract {
+    $instance = new class extends Model implements FlexyModelContract
+    {
         use Flexy;
 
         protected $table = 'fly_models';
@@ -23,6 +24,3 @@ it('can test', function () {
     dd($instance::class);
 
 });
-
-
-
