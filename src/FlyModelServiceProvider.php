@@ -2,7 +2,6 @@
 
 namespace AuroraWebSoftware\FlyModel;
 
-use AuroraWebSoftware\FlexyField\FlexyFieldServiceProvider;
 use AuroraWebSoftware\FlyModel\Commands\FlyModelCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -15,6 +14,7 @@ class FlyModelServiceProvider extends PackageServiceProvider
 
         return parent::boot();
     }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -23,11 +23,10 @@ class FlyModelServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('flymodel')
-            //->hasConfigFile()
-            //->hasViews()
-            //->hasMigration('create_flymodel_table')
-            //->hasCommand(FlyModelCommand::class)
-        ;
+            ->name('flymodel');
+        //->hasConfigFile()
+        //->hasViews()
+        //->hasMigration('create_flymodel_table')
+        //->hasCommand(FlyModelCommand::class)
     }
 }
