@@ -1,4 +1,4 @@
-name: run-tests-mysql
+name: run-tests-postgres
 
 on:
   push:
@@ -31,24 +31,22 @@ jobs:
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     services:
-      mysql:
-        image: mysql:8.0
+      postgres:
+        image: postgres:15
         ports:
-          - 3306
+          - 5432
         env:
-          MYSQL_ROOT_PASSWORD: flymodel
-          MYSQL_PASSWORD: flymodel
-          MYSQL_USER: flymodel
-          MYSQL_DATABASE: flymodel
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
+          POSTGRES_USER: flymodel
+          POSTGRES_PASSWORD: flymodel
+          POSTGRES_DB: flymodel
+        options: --health-cmd="pg_isready -U flymodel" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - name: Verify Mysql connection
+      - name: Verify PostgreSQL connection
         run: |
-          mysql --version
-          sudo apt-get install -y mysql-client
-          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uflymodel -pflymodel -e "SHOW DATABASES"
+          psql --version
+          sudo apt-get install -y postgresql-client
+          PGPASSWORD=flymodel psql --host 127.0.0.1 --port ${{ job.services.postgres.ports['5432'] }} -U flymodel -d flymodel -c "\l"
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -73,10 +71,13 @@ jobs:
       - name: List Installed Dependencies
         run: composer show -D
 
-      - name: Execute tests
-        run: vendor/bin/pest --ci
+      - name: Execute tests for using postgress
+        run: vendor/bin/pest --ci --configuration ./phpunit-postgress.xml.dist
 
         env:
+          POSTGRES_USER: flymodel
+          POSTGRES_PASSWORD: flymodel
+          POSTGRES_DB: flymodel
           DB_USERNAME: flymodel
           DB_PASSWORD: flymodel
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}

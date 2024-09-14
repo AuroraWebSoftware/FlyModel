@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  mariadb:
+    image: mariadb:10.8
+    ports:
+      - "33064:3306"
+    volumes:
+      - ~/apps/flymodel/mariadb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=flymodel
+      - MYSQL_PASSWORD=flymodel
+      - MYSQL_USER=flymodel
+      - MYSQL_DATABASE=flymodel
+  postgres:
+    image: postgres:15
+    ports:
+      - "54324:5432"
+    volumes:
+      - ~/apps/flymodel/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=flymodel
+      - POSTGRES_PASSWORD=flymodel
+      - POSTGRES_DB=flymodel
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.9.0/24

@@ -8,12 +8,14 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('flymodel_table', function (Blueprint $table) {
+        Schema::create('fly_models', function (Blueprint $table) {
             $table->id();
-
-            // add fields
-
+            $table->string('deck')->index();
             $table->timestamps();
         });
+    }
+
+    public function down() {
+        Schema::dropIfExists('fly_models');
     }
 };
