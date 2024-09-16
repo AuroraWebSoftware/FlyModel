@@ -16,8 +16,6 @@ it('can test', function () {
     $model = FlyModel::of('deck1');
     $model->save();
 
-
-
     $model->flexy->a = 'a';
     $model->save();
 
