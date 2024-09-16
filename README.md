@@ -3,7 +3,7 @@
 
 FlyModel is a Laravel package that empowers you to create and manage models dynamically, **on the fly !**.
 
-It define flexible and customizable models and model fields **without needing to change** the database schema.
+It allows to define flexible and customizable models and model fields **without needing to change** the database schema.
 
 This package streamlines your workflow by eliminating the need to define models explicitly in your codebase. Instead, you can generate and interact with models as needed, based on a unique "deck" identifier.
 
