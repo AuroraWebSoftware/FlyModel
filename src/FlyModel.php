@@ -9,15 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class FlyModel
 {
-    public function make(string $deck)
+    public function of(string $deck)
     {
         $instance = new class extends Model implements FlexyModelContract {
             use Flexy;
             protected $guarded = [];
-            protected static function booted()
+            protected static function booted(): void
             {
                 static::addGlobalScope('deck', function (Builder $builder) {
-                    $modelType = static::getModelType();
                     $builder->where(function ($query) {
                         $query->where('deck', '=', self::$deck);
                     });
@@ -32,7 +31,6 @@ class FlyModel
             {
                 return 'FlyModel@' . self::$deck;
             }
-
 
         };
 
