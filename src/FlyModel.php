@@ -29,7 +29,7 @@ class FlyModel
 
             public static function getModelType(): string
             {
-                return 'FlyModel@' . self::$deck;
+                return 'AuroraWebSoftware\FlyModel\FlyModel@' . self::$deck;
             }
 
         };
