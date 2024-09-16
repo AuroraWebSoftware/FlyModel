@@ -11,12 +11,15 @@ class FlyModel
 {
     public function of(string $deck)
     {
-        $instance = new class extends Model implements FlexyModelContract {
+        $instance = new class extends Model implements FlexyModelContract
+        {
             use Flexy;
+
             protected $guarded = [];
+
             protected static function booted(): void
             {
-                static::addGlobalScope('deck', function (Builder $builder) {
+                self::addGlobalScope('deck', function (Builder $builder) {
                     $builder->where(function ($query) {
                         $query->where('deck', '=', self::$deck);
                     });
@@ -29,13 +32,13 @@ class FlyModel
 
             public static function getModelType(): string
             {
-                return 'AuroraWebSoftware\FlyModel\FlyModel@' . self::$deck;
+                return 'AuroraWebSoftware\FlyModel\FlyModel@'.self::$deck;
             }
-
         };
 
         $instance::$deck = $deck;
         $instance->deck = $deck;
+
         return $instance;
     }
 }
