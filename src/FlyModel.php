@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FlyModel
 {
-    public function of(string $deck)
+    public function of(string $deck): Model|FlexyModelContract
     {
         $instance = new class extends Model implements FlexyModelContract {
             use Flexy;
