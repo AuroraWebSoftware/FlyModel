@@ -1,84 +1,103 @@
-# Laravel Models on the FLY !
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/aurora-web-software-team/flymodel.svg?style=flat-square)](https://packagist.org/packages/aurora-web-software-team/flymodel)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/aurora-web-software-team/flymodel/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/aurora-web-software-team/flymodel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/aurora-web-software-team/flymodel/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/aurora-web-software-team/flymodel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/aurora-web-software-team/flymodel.svg?style=flat-square)](https://packagist.org/packages/aurora-web-software-team/flymodel)
+# FlyModel: Dynamic Laravel Models on the Fly
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+FlyModel is a Laravel package that empowers you to create and manage models dynamically, **on the fly !**.
 
-## Support us
+It define flexible and customizable models and model fields **without needing to change** the database schema.
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/FlyModel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/FlyModel)
+This package streamlines your workflow by eliminating the need to define models explicitly in your codebase. Instead, you can generate and interact with models as needed, based on a unique "deck" identifier.
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+The package uses **FlexyField** Package as Dynamic Field Engine.
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+For More Info Visit: https://github.com/AuroraWebSoftware/FlexyField
 
-## Installation
+## 🚀 Features
 
-You can install the package via composer:
+- **Dynamic Model Creation**: Instantiate models with a specified "deck" identifier without pre-defining them.
+- **Dynamic Fields** : Define flexible and customizable fields on models **without needing to change** the database schema.
+- **Automatic Scoping**: Models are automatically scoped according to the deck, ensuring data isolation.
+- **Seamless Integration**: Works effortlessly with Laravel’s Eloquent ORM.
+
+## 📦 Installation
+
+To get started with FlyModel, follow these steps:
+
+### Install the Package
+
+Add FlyModel to your project using Composer:
 
 ```bash
-composer require aurora-web-software-team/flymodel
+composer require aurorawebsoftware/flymodel
 ```
 
-You can publish and run the migrations with:
+### Run the Migration
+
+Create the necessary database table for storing fly models:
 
 ```bash
-php artisan vendor:publish --tag="flymodel-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
 
-```bash
-php artisan vendor:publish --tag="flymodel-config"
-```
+## 📘 Usage
 
-This is the contents of the published config file:
+### Creating and Using Fly Models
 
-```php
-return [
-];
-```
+With FlyModel, you can dynamically create models and perform various operations. Here’s how:
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="flymodel-views"
-```
-
-## Usage
+Instantiate a Model with a Deck
 
 ```php
-$flyModel = new AuroraWebSoftware\FlyModel();
-echo $flyModel->echoPhrase('Hello, AuroraWebSoftware!');
+$building = FlyModel::of('building');
 ```
 
-## Testing
+Save the Model if not saved or created before
 
-```bash
-composer test
+```php
+$building->save();
 ```
 
-## Changelog
+Perform Field Operations
+```php
+$building->flexy->name = 'Headquarter Building'
+$building->flexy->address = 'Ali Pasha Ave. number 10';
+$building->flexy->city = 'İstanbul';
+$building->flexy->floor = 7;
+$building->flexy->area = 313;
+$building->flexy->active = true;
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+$building->save();
+```
 
-## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Perform Eloquent Operations
 
-## Security Vulnerabilities
+```php
+$buildings = FlyModel::of('building')->all();
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+$istanbulBuildings = FlyModel::of('building')
+                        ->where('flexy_city', 'İstanbul')
+                        ->get();
 
-## Credits
+$largeBuildings = FlyModel::of('building')
+                    ->where('flexy_area', '>' 500)
+                    ->orderBy('flexy_area')
+                    ->get();
+                    
+$highBuildingsInIstanbul = FlyModel::of('building')
+                            ->where('flexy_floor', '>' 10)
+                            ->where('flexy_city', 'İstanbul')
+                            ->get();
+```
 
-- [Aurora Web Software Team](https://github.com/Aurora Web Software Team)
-- [All Contributors](../../contributors)
 
-## License
+## 🧪 Testing
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+FlyModel integrates with Laravel’s testing environment. Here’s an example of how to write tests for it:
+
+
+
+## 💬 Contributing
+
+We welcome contributions to improve FlyModel!
+##

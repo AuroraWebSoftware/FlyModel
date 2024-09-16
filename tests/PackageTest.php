@@ -13,13 +13,15 @@ beforeEach(function () {
 
 it('can test', function () {
 
-    FlyModel::of('deck1')->save();
-    $deck1 = FlyModel::of('deck1')->find(1);
+    $model = FlyModel::of('deck1');
+    $model->save();
 
-    $deck1->flexy->a = 'a';
-    $deck1->save();
 
-    expect(FlyModel::of('deck1')->find($deck1->id)->flexy->a)
+
+    $model->flexy->a = 'a';
+    $model->save();
+
+    expect(FlyModel::of('deck1')->find($model->id)->flexy->a)
         ->toBe('a');
 
 });
