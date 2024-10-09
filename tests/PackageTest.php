@@ -19,7 +19,6 @@ it('can test', function () {
     $model->flexy->a = 'a';
     $model->save();
 
-
     expect(FlyModel::of('deck1')->find($model->id)->flexy->a)
         ->toBe('a');
 
