@@ -1,12 +1,12 @@
 {
-    "name": "aurorawebsoftwareteam/flymodel",
+    "name": "aurorawebsoftware/flymodel",
     "description": "Laravel Models on the FLY !",
     "keywords": [
         "AuroraWebSoftware",
         "laravel",
         "flymodel"
     ],
-    "homepage": "https://github.com/aurora-web-software-team/flymodel",
+    "homepage": "https://github.com/aurorawebsoftware/flymodel",
     "license": "MIT",
     "authors": [
         {
